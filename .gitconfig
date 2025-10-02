@@ -1,0 +1,37 @@
+[user]
+	email = timothyj.sullivan1@gmail.com
+	name = Tim Sullivan
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[alias]    
+	br = branch
+    st = status -s -b
+    lg = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative -20
+    
+    ## The below aliases were culled from this blog: https://blog.praveen.science/git-shortcuts/
+    # Adding and committing
+    a    = !git add . && git status
+    ac   = !git add . && git commit
+    acm  = !git add . && git commit -m
+    c    = commit
+    cm   = commit -m
+    uc   = !git reset --soft HEAD^ && git reset HEAD .
+
+    # Diffing
+    d    = diff
+    dc   = diff --cached
+
+    # Checkout alliases
+    co   = checkout
+    com  = checkout master
+    cob  = checkout -b
+    cod  = checkout development
+
+    # show me all of my aliases
+    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+
+[core]
+	excludesFile = ~/.gitignore
