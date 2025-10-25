@@ -2,6 +2,9 @@
 	email = timothyj.sullivan1@gmail.com
 	name = Tim Sullivan
 
+[push]
+    autoSetupRemote = true
+
 [alias]    
 	br = branch
     st = status -s -b
