@@ -97,3 +97,42 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+git_polish() {
+    # Usage: git_polish main
+    # or:    git_polish develop
+    BASE_BRANCH="${1:-main}"
+
+    # Remember the current branch
+    CURR_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+    # 1. Make sure we're clean
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+        echo "✋ You have uncommitted changes. Commit or stash first."
+        return 1
+    fi
+
+    # 2. Sync base branch
+    echo "🔄 Updating $BASE_BRANCH..."
+    git fetch origin "$BASE_BRANCH" || return 1
+    git checkout "$BASE_BRANCH" || return 1
+    git pull origin "$BASE_BRANCH" || return 1
+
+    # 3. Rebase current feature branch onto base
+    echo "🌿 Rebasing $CURR_BRANCH onto $BASE_BRANCH..."
+    git checkout "$CURR_BRANCH" || return 1
+    git rebase -i "$BASE_BRANCH"
+
+    if [ $? -ne 0 ]; then
+        echo "⚠️ Rebase had conflicts. Resolve them, then run:"
+        echo "   git rebase --continue"
+        echo "   (then run git push --force-with-lease when you're done)"
+        return 1
+    fi
+
+    # 4. Push with safety
+    echo "☁️ Pushing cleaned branch..."
+    git push --force-with-lease origin "$CURR_BRANCH"
+    echo "✅ Branch polished. Open your PR."
+}
+
