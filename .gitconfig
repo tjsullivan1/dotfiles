@@ -25,7 +25,7 @@
 
     # Checkout alliases
     co   = checkout
-    com  = checkout master
+    com  = checkout main
     cob  = checkout -b
     cod  = checkout development
 
