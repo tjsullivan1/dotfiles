@@ -34,3 +34,7 @@
 
 [core]
 	excludesFile = ~/.gitignore
+
+[init]
+	defaultbranch = main
+
