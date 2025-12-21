@@ -38,3 +38,11 @@
 [init]
 	defaultbranch = main
 
+[help]
+	autocorrect = prompt
+
+[diff]
+	algorithm = histogram
+
+[merge]
+	conflictStyle = zdiff3
