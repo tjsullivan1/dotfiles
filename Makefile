@@ -52,6 +52,7 @@ clean: ## Remove all sentinel stamps (does NOT uninstall software)
 .PHONY: install-python clean-python
 
 install-python: $(STAMP_DIR)/python
+
 $(STAMP_DIR)/python:
 	@echo "Ensuring Python 3 and pip are installed..."
 	@sudo apt install -y python3 python3-pip python-is-python3
