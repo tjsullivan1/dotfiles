@@ -50,17 +50,23 @@ clean: ## Remove all sentinel stamps (does NOT uninstall software)
 
 #############################################################################
 # Python Configuration
-.PHONY: install-python clean-python
+.PHONY: install-python install-uv clean-python
 
-install-python: $(STAMP_DIR)/python
+install-python: install-uv $(STAMP_DIR)/python
 
 $(STAMP_DIR)/python:
 	@echo "Ensuring Python 3 and pip are installed...";
 	@sudo apt install -y python3 python3-pip python-is-python3;
 	@touch $@;
 
+install-uv: $(STAMP_DIR)/uv
+
+$(STAMP_DIR)/uv:
+	@curl -LsSf https://astral.sh/uv/install.sh | sh
+
 clean-python:
 	rm -f $(STAMP_DIR)/python
+	rm -f $(STAMP_DIR)/uv
 
 #############################################################################
 # Copilot
