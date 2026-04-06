@@ -25,25 +25,25 @@ help: ## Show this help message
 
 setup: update install-kubectl install-helm install-azure-cli install-terraform install-copilot configure-zsh install-python ## Install required 
 	@sudo update-alternatives --set editor /usr/bin/vim.basic
-	@curl -o "$$HOME/.bashrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bashrc
-	@curl -o "$$HOME/.bash_aliases" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bash_aliases
-	@curl -o "$$HOME/.gitconfig" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.gitconfig
-	@curl -o "$$HOME/.vimrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.vimrc
+	@curl -o "$$HOME/.bashrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bashrc;
+	@curl -o "$$HOME/.bash_aliases" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bash_aliases;
+	@curl -o "$$HOME/.gitconfig" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.gitconfig;
+	@curl -o "$$HOME/.vimrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.vimrc;
 
 
 status: ## Show what is currently installed
-	@echo "── Installed versions ──"
-	@command -v zsh    >/dev/null 2>&1 && zsh --version 2>/dev/null || echo "zsh: not installed"
-	@command -v copilot >/dev/null 2>&1 && copilot --version 2>/dev/null || echo "copilot: not installed"
-	@command -v kubectl    >/dev/null 2>&1 && kubectl version --client 2>/dev/null || echo "kubectl: not installed"
-	@command -v helm       >/dev/null 2>&1 && helm version 2>/dev/null             || echo "helm: not installed"
-	@command -v terraform  >/dev/null 2>&1 && terraform version -json 2>/dev/null | head -1 || echo "terraform: not installed"
-	@command -v az         >/dev/null 2>&1 && az version --output table 2>/dev/null        || echo "az cli: not installed"
-	@command -v python     >/dev/null 2>&1 && python --version 2>/dev/null || echo "Python: not installed"
+	@echo "── Installed versions ──";
+	@command -v zsh    >/dev/null 2>&1 && zsh --version 2>/dev/null || echo "zsh: not installed";
+	@command -v copilot >/dev/null 2>&1 && copilot --version 2>/dev/null || echo "copilot: not installed";
+	@command -v kubectl    >/dev/null 2>&1 && kubectl version --client 2>/dev/null || echo "kubectl: not installed";
+	@command -v helm       >/dev/null 2>&1 && helm version 2>/dev/null             || echo "helm: not installed";
+	@command -v terraform  >/dev/null 2>&1 && terraform version -json 2>/dev/null | head -1 || echo "terraform: not installed";
+	@command -v az         >/dev/null 2>&1 && az version --output table 2>/dev/null        || echo "az cli: not installed";
+	@command -v python     >/dev/null 2>&1 && python --version 2>/dev/null || echo "Python: not installed";
 
 update: ## Run OS updates
-	@sudo apt update -y
-	@sudo apt upgrade -y
+	@sudo apt update -y;
+	@sudo apt upgrade -y;
 
 clean: ## Remove all sentinel stamps (does NOT uninstall software)
 	rm -rf $(STAMP_DIR)
@@ -55,9 +55,9 @@ clean: ## Remove all sentinel stamps (does NOT uninstall software)
 install-python: $(STAMP_DIR)/python
 
 $(STAMP_DIR)/python:
-	@echo "Ensuring Python 3 and pip are installed..."
-	@sudo apt install -y python3 python3-pip python-is-python3
-	@touch $@
+	@echo "Ensuring Python 3 and pip are installed...";
+	@sudo apt install -y python3 python3-pip python-is-python3;
+	@touch $@;
 
 clean-python:
 	rm -f $(STAMP_DIR)/python
