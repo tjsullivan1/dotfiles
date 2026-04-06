@@ -39,6 +39,7 @@ status: ## Show what is currently installed
 	@command -v helm       >/dev/null 2>&1 && helm version 2>/dev/null             || echo "helm: not installed"
 	@command -v terraform  >/dev/null 2>&1 && terraform version -json 2>/dev/null | head -1 || echo "terraform: not installed"
 	@command -v az         >/dev/null 2>&1 && az version --output table 2>/dev/null        || echo "az cli: not installed"
+	@command -v python     >/dev/null 2>&1 && python --version 2>/dev/null || echo "Python: not installed"
 
 update: ## Run OS updates
 	@sudo apt update -y
