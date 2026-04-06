@@ -195,7 +195,7 @@ $(STAMP_DIR)/zsh:
 		echo "zsh already installed: $$(zsh --version)"; \
 	else \
 		echo "Installing zsh..."; \
-		@sudo apt install zsh fonts-font-awesome -y; \
+		sudo apt install zsh fonts-font-awesome -y; \
 	fi
 	@touch $@
 
