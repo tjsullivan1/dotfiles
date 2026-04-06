@@ -23,7 +23,7 @@ $(shell mkdir -p $(STAMP_DIR))
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-setup: update install-kubectl install-helm install-azure-cli install-terraform install-copilot configure-zsh ## Install required 
+setup: update install-kubectl install-helm install-azure-cli install-terraform install-copilot configure-zsh install-python ## Install required 
 	@sudo update-alternatives --set editor /usr/bin/vim.basic
 	@curl -o "$$HOME/.bashrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bashrc
 	@curl -o "$$HOME/.bash_aliases" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bash_aliases
@@ -46,6 +46,19 @@ update: ## Run OS updates
 
 clean: ## Remove all sentinel stamps (does NOT uninstall software)
 	rm -rf $(STAMP_DIR)
+
+#############################################################################
+# Python Configuration
+.PHONY: install-python clean-python
+
+install-python: $(STAMP_DIR)/python
+$(STAMP_DIR)/python:
+	@echo "Ensuring Python 3 and pip are installed..."
+	@sudo apt install -y python3 python3-pip python-is-python3
+	@touch $@
+
+clean-python:
+	rm -f $(STAMP_DIR)/python
 
 #############################################################################
 # Copilot
