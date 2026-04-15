@@ -20,7 +20,7 @@ MAKEFILE_RAW_URL := https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/
 
 #############################################################################
 # Top Level
-.PHONY: help setup status clean update self-update install-jq clean-jq
+.PHONY: help setup status clean update self-update
 
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
