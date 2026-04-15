@@ -25,7 +25,7 @@ MAKEFILE_RAW_URL := https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/
 help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-setup: update install-kubectl install-helm install-azure-cli install-terraform install-copilot install-gh configure-zsh install-python ## Install required
+setup: update install-kubectl install-helm install-azure-cli install-terraform install-copilot install-gh configure-zsh install-python install-jq ## Install required
 	@sudo update-alternatives --set editor /usr/bin/vim.basic
 	@curl -o "$$HOME/.bashrc" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bashrc;
 	@curl -o "$$HOME/.bash_aliases" https://raw.githubusercontent.com/tjsullivan1/dotfiles/refs/heads/main/.bash_aliases;
@@ -42,6 +42,7 @@ status: ## Show what is currently installed
 	@command -v terraform  >/dev/null 2>&1 && terraform version -json 2>/dev/null | head -1 || echo "terraform: not installed";
 	@command -v az         >/dev/null 2>&1 && az version --output table 2>/dev/null        || echo "az cli: not installed";
 	@command -v python     >/dev/null 2>&1 && python --version 2>/dev/null || echo "Python: not installed";
+	@command -v jq         >/dev/null 2>&1 && jq --version 2>/dev/null              || echo "jq: not installed";
 
 update: ## Run OS updates
 	@sudo apt update -y;
@@ -136,5 +137,28 @@ $(STAMP_DIR)/copilot:
 
 clean-copilot:
 	rm -f $(STAMP_DIR)/copilot
+
+#############################################################################
+# jq
+.PHONY: install-jq clean-jq
+
+install-jq: $(STAMP_DIR)/jq
+
+$(STAMP_DIR)/jq:
+	@if command -v jq >/dev/null 2>&1; then \
+		echo "jq already installed: $$(jq --version 2>/dev/null || echo installed)"; \
+	else \
+		echo "Installing jq..."; \
+		sudo apt-get update -y; \
+		sudo apt-get install -y jq; \
+		if ! command -v jq >/dev/null 2>&1; then \
+			echo "jq install did not produce a 'jq' binary in PATH"; \
+			exit 1; \
+		fi; \
+	fi
+	@touch $@
+
+clean-jq:
+	rm -f $(STAMP_DIR)/jq
 
 # ... (rest of your existing Makefile continues unchanged)
