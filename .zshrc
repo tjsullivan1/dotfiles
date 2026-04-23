@@ -124,7 +124,7 @@ alias clp='xclip -selection clipboard'
 alias mine='sudo chown -R tjs:tjs .'
 alias sigcap='f() { git commit -am "$1" && /home/tjs/sigma-chi/l3-web-main-site/utilities/builder.sh}; f'
 alias cookies='f() { cookiecutter https://github.com/tjsullivan1/tjs-scripts.git --directory="cookiecutter/$1" }; f'
-alias cpcli='copilot --allow-all-tools --deny-tool='shell(git push)' -p "$@"'
+alias cpcli='copilot --allow-all-tools --deny-tool="shell(git push)" -p "$@"'
 
 complete -F __start_kubectl k
 
